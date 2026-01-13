@@ -1,7 +1,21 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Body from "./Component/Body";
+import Browse from "./Component/Browse";
 function App(): React.ReactElement {
+  const appRoute = createBrowserRouter([
+    {
+      path: "/",
+      element: <Body />,
+    },
+    {
+      path: "/browse",
+      element: <Browse />,
+    },
+  ]);
+
   return (
     <div className="App">
-      <h1 className="from-orange-500">Hello TSX 🚀</h1>
+     <RouterProvider router ={appRoute} />
     </div>
   );
 }

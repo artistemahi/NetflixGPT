@@ -23,14 +23,16 @@ const LandingPage = () => {
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/60"></div>
+      <div className="absolute inset-0 bg-black/60 pointer-events-none"></div>
 
       {/* Content */}
       {!IsSignIn ? (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center max-w-2xl text-white">
             <h1 className="text-4xl md:text-5xl font-bold">
-              Unlimited movies,<br />shows, and more
+              Unlimited movies,
+              <br />
+              shows, and more
             </h1>
 
             <p className="mt-4 font-bold">
@@ -48,7 +50,7 @@ const LandingPage = () => {
                 className="flex-1 rounded bg-zinc-900 bg-opacity-80 px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-1 focus:ring-white"
               />
               <button className="rounded bg-red-600 px-6 py-3 text-xl font-bold hover:bg-red-700">
-                Get Started
+                Get Started ▶️
               </button>
             </div>
           </div>

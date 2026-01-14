@@ -1,9 +1,22 @@
 import React from "react";
+import Validate from "../utils/Validate";
+import { useRef } from "react";
 import { useState } from "react";
 const Form = () => {
   const [isSignUp, setisSignUp] = useState(false);
+  const [IsSubmit, setIsSubmit] = useState(false);
+  const [IsErrorMessg, setErrorMssg] = useState(null);
+  const email = useRef(null);
+  const password = useRef(null);
   const signupCLickHandler = () => {
     setisSignUp(!isSignUp);
+  };
+  const submitbtnCLickHandler = () => {
+    setIsSubmit(!IsSubmit);
+    const ErrorMessg = Validate(email.current.value, password.current.value);
+    setErrorMssg(ErrorMessg);
+    // console.log(email.current.value);
+    // console.log(password.current.value);
   };
   return (
     <form
@@ -24,6 +37,7 @@ const Form = () => {
       )}
       {/* email */}
       <input
+        ref={email}
         type="email"
         placeholder="Email address"
         className="w-full mb-4 rounded bg-zinc-800 px-4 py-3 placeholder-gray-400 outline-none focus:ring-1 focus:ring-white"
@@ -31,21 +45,20 @@ const Form = () => {
 
       {/* password */}
       <input
+        ref={password}
         type="password"
         placeholder="Password"
         className="w-full mb-6 rounded bg-zinc-800 px-4 py-3 placeholder-gray-400 outline-none focus:ring-1 focus:ring-white"
       />
 
       {/* sign In button */}
-      {!isSignUp ? (
-        <button className="w-full rounded bg-red-600 py-3 font-bold hover:bg-red-700 transition">
-          Sign In
-        </button>
-      ) : (
-        <button className="w-full rounded bg-red-600 py-3 font-bold hover:bg-red-700 transition">
-          Sign Up
-        </button>
-      )}
+      <button
+        onClick={submitbtnCLickHandler}
+        className="w-full rounded bg-red-600 py-3 font-bold hover:bg-red-700 transition"
+      >
+        {!isSignUp ? "Sign In" : "Sign Up"}
+      </button>
+      <p className = "text-red-500 font-bold m-2">{IsErrorMessg}</p>
 
       {/* OR */}
       <p className="my-4 text-center text-sm text-gray-400">OR</p>

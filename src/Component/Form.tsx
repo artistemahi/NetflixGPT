@@ -35,6 +35,8 @@ const Form = () => {
             const errorMessage = error.message;
             setErrorMssg(errorCode+"-"+errorMessage);
             // ..
+            // goto browse page 
+            
           });
       } else {
         // sign in logic

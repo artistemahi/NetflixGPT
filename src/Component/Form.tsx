@@ -2,14 +2,16 @@ import React from "react";
 import Validate from "../utils/Validate";
 import { useRef } from "react";
 import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../utils/firebase";
 const Form = () => {
-  const [isSignUp, setisSignUp] = useState(false);
+  const [isSignUpMode, setisSignUpMode] = useState(false);
   const [IsSubmit, setIsSubmit] = useState(false);
   const [IsErrorMessg, setErrorMssg] = useState(null);
   const email = useRef(null);
   const password = useRef(null);
   const signupCLickHandler = () => {
-    setisSignUp(!isSignUp);
+    setisSignUpMode(!isSignUpMode);
   };
   const submitbtnCLickHandler = () => {
     setIsSubmit(!IsSubmit);
@@ -17,18 +19,39 @@ const Form = () => {
     setErrorMssg(ErrorMessg);
     // console.log(email.current.value);
     // console.log(password.current.value);
+
+    if (ErrorMessg === null) {
+      if (isSignUpMode) {
+        // sign up logic
+        createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+          .then((userCredential) => {
+            // Signed up
+            const user = userCredential.user;
+            console.log(user);
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setErrorMssg(errorCode+"-"+errorMessage);
+            // ..
+          });
+      } else {
+        // sign in logic
+      }
+    }
   };
   return (
     <form
       className="w-[400px] bg-black/75 p-10 mt-5 mb-5 rounded-md text-white"
       onSubmit={(e) => e.preventDefault()}
     >
-      {!isSignUp ? (
+      {!isSignUpMode ? (
         <h2 className="text-3xl font-bold mb-6">Sign In</h2>
       ) : (
         <h2 className="text-3xl font-bold mb-6">Sign Up</h2>
       )}
-      {isSignUp && (
+      {isSignUpMode && (
         <input
           type="text"
           placeholder="Name"
@@ -56,9 +79,9 @@ const Form = () => {
         onClick={submitbtnCLickHandler}
         className="w-full rounded bg-red-600 py-3 font-bold hover:bg-red-700 transition"
       >
-        {!isSignUp ? "Sign In" : "Sign Up"}
+        {!isSignUpMode ? "Sign In" : "Sign Up"}
       </button>
-      <p className = "text-red-500 font-bold m-2">{IsErrorMessg}</p>
+      <p className="text-red-500 font-bold m-2">{IsErrorMessg}</p>
 
       {/* OR */}
       <p className="my-4 text-center text-sm text-gray-400">OR</p>

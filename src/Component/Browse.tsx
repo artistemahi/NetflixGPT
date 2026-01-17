@@ -1,7 +1,9 @@
 import { signOut } from "firebase/auth"; 
 import { auth } from "../utils/firebase";
 import Header from "./Header";
+import useNowPlayingMovie from '../utils/useNowPlayingMovie'
 const Browse = () => {
+  useNowPlayingMovie();
   const SignOutClickHandler = () => {
     signOut(auth)
       .then(() => {

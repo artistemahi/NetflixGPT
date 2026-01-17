@@ -2,6 +2,8 @@ import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import Header from "./Header";
 import useNowPlayingMovie from '../utils/useNowPlayingMovie'
+import MainComponent from "./MainComponent";
+import SecondaryComponent from "./SecondaryComponent";
 const Browse = () => {
   useNowPlayingMovie();
   const SignOutClickHandler = () => {
@@ -17,6 +19,8 @@ const Browse = () => {
   return (
     <div>
       <Header IsSignIn={true} signinHandler={SignOutClickHandler} />
+      <MainComponent></MainComponent>
+      <SecondaryComponent></SecondaryComponent>
     </div>
   );
 };

@@ -1,15 +1,19 @@
-import React from "react";
 import Validate from "../utils/Validate";
-import { useRef } from "react";
-import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import {auth} from "../utils/firebase";
+import { useState, useRef } from "react";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+
 const Form = () => {
   const [isSignUpMode, setisSignUpMode] = useState(false);
   const [IsSubmit, setIsSubmit] = useState(false);
   const [IsErrorMessg, setErrorMssg] = useState(null);
   const email = useRef(null);
   const password = useRef(null);
+  const name = useRef(null);
   const signupCLickHandler = () => {
     setisSignUpMode(!isSignUpMode);
   };
@@ -23,23 +27,45 @@ const Form = () => {
     if (ErrorMessg === null) {
       if (isSignUpMode) {
         // sign up logic
-        createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+        createUserWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value
+        )
           .then((userCredential) => {
             // Signed up
             const user = userCredential.user;
-            console.log(user);
+            // console.log(user);
+
+            //updating the user
+            updateProfile(user, {
+              displayName: name.current.value,
+              // photoURL: "https://example.com/jane-q-user/profile.jpg",
+            });
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setErrorMssg(errorCode + "-" + errorMessage);
+            // ..
+          });
+      } else {
+        // sign in logic
+        signInWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value
+        )
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
             // ...
           })
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            setErrorMssg(errorCode+"-"+errorMessage);
-            // ..
-            // goto browse page 
-            
+            setErrorMssg(errorCode + "-" + errorMessage);
           });
-      } else {
-        // sign in logic
       }
     }
   };
@@ -55,6 +81,7 @@ const Form = () => {
       )}
       {isSignUpMode && (
         <input
+          ref={name}
           type="text"
           placeholder="Name"
           className="w-full mb-4 rounded bg-zinc-800 px-4 py-3 placeholder-gray-400 outline-none focus:ring-1 focus:ring-white"

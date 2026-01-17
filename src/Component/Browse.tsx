@@ -6,6 +6,7 @@ import MainComponent from "./MainComponent";
 import SecondaryComponent from "./SecondaryComponent";
 const Browse = () => {
   useNowPlayingMovie();
+  
   const SignOutClickHandler = () => {
     signOut(auth)
       .then(() => {

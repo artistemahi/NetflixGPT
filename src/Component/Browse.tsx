@@ -20,8 +20,10 @@ const Browse = () => {
   return (
     <div>
       <Header IsSignIn={true} signinHandler={SignOutClickHandler} />
-      <MainComponent></MainComponent>
-      <SecondaryComponent></SecondaryComponent>
+      <div >
+      <MainComponent/>
+      <SecondaryComponent/>
+       </div>
     </div>
   );
 };

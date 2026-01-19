@@ -1,6 +1,10 @@
-import { NetflixLogo,NetflixUserbg } from "../utils/constants";
+import {
+  NetflixLogo,
+  NetflixUserbg,
+  SupportedLanguages,
+} from "../utils/constants";
 import LanguageSelector from "./LanguageSelector";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
@@ -11,13 +15,12 @@ import { auth } from "../utils/firebase";
 const Header = ({ IsSignIn, signinHandler }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [IsGPT,setIsGPT] = useState(false);
-  const GptClickHandler =()=>{
+  const [IsGPT, setIsGPT] = useState(false);
+  const GptClickHandler = () => {
     //toogle feature
     dispatch(togglerGptSearchView());
     setIsGPT(!IsGPT);
-
-  }
+  };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -65,10 +68,23 @@ const Header = ({ IsSignIn, signinHandler }) => {
             Sign In
           </button>
         </div>
-      ): (// here operate from the browse page  
+      ) : (
+        // here operate from the browse page
         <div className="flex items-center gap-4">
-          <button onClick={GptClickHandler} className="bg-green-600 py-2 px-2 rounded-md text-white font-bold">{IsGPT?"Home":"GPT Search"}</button>
-          <img src={NetflixUserbg} alt = "netflixUserBg"/>
+          <select className="p-[2px] rounded-r-sm ">
+            {SupportedLanguages.map((index) => (
+              <option key={index.identifier} value={index.name}>
+                {index.name}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={GptClickHandler}
+            className="bg-green-600 py-2 px-2 rounded-md text-white font-bold"
+          >
+            {IsGPT ? "Home" : "GPT Search"}
+          </button>
+          <img src={NetflixUserbg} alt="netflixUserBg" />
           <button
             onClick={signinHandler}
             className="rounded-md bg-red-600 px-6 py-2 text-white font-semibold hover:bg-red-700 transition"

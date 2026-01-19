@@ -14,3 +14,10 @@ export const TopRatedMoviesAPI="https://api.themoviedb.org/3/movie/top_rated?&pa
 export const UpcomingMoviesAPI="https://api.themoviedb.org/3/movie/upcoming?&page=1"
 export const Video_API="https://api.themoviedb.org/3/movie/83533/videos?language=en-US" // yaha video id aayegi 4 digit ki 
 export const CDN_API="https://image.tmdb.org/t/p/w200/";
+
+export const SupportedLanguages=[
+  {identifier:"en",name:"English"},
+  {identifier:"hindi",name:"Hindi"},
+  {identifier:"spanish",name:"Spanish"},
+  {identifier:"french",name:"French"},
+];

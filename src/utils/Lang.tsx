@@ -7,11 +7,11 @@ const lang={
         search:"खोज",
         gptSearchPlaceholder:"आज आप क्या देखना चाहेंगे?"
     },
-    Spanish:{
+    spanish:{
         search:"Buscar",
         gptSearchPlaceholder:"¿Qué te gustaría ver hoy?"
     },
-    French:{
+    french:{
         search:"Recherche",
         gptSearchPlaceholder:"Qu'aimeriez-vous regarder aujourd'hui ?"
     }

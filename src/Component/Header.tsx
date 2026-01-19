@@ -11,11 +11,15 @@ import { useNavigate, Link } from "react-router-dom";
 import { addUser, removeUser } from "../Slices/UserSlice";
 import { togglerGptSearchView } from "../Slices/GptSlice";
 import { auth } from "../utils/firebase";
+import {changeLanguage} from "../Slices/configSlice"
 
 const Header = ({ IsSignIn, signinHandler }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [IsGPT, setIsGPT] = useState(false);
+  const languageClickHandler =(e)=>{
+   dispatch(changeLanguage(e.target.value));
+  }
   const GptClickHandler = () => {
     //toogle feature
     dispatch(togglerGptSearchView());
@@ -71,13 +75,15 @@ const Header = ({ IsSignIn, signinHandler }) => {
       ) : (
         // here operate from the browse page
         <div className="flex items-center gap-4">
-          <select className="p-[2px] rounded-r-sm ">
+          {/*language selector*/}
+          {IsGPT && ( <select onChange={languageClickHandler} className="p-[2px] rounded-r-sm ">
             {SupportedLanguages.map((index) => (
-              <option key={index.identifier} value={index.name}>
+              <option key={index.identifier} value={index.identifier}>
                 {index.name}
               </option>
             ))}
-          </select>
+          </select>)}
+         
           <button
             onClick={GptClickHandler}
             className="bg-green-600 py-2 px-2 rounded-md text-white font-bold"

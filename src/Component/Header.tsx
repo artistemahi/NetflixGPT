@@ -1,15 +1,23 @@
 import { NetflixLogo,NetflixUserbg } from "../utils/constants";
 import LanguageSelector from "./LanguageSelector";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { addUser, removeUser } from "../Slices/UserSlice";
+import { togglerGptSearchView } from "../Slices/GptSlice";
 import { auth } from "../utils/firebase";
 
 const Header = ({ IsSignIn, signinHandler }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [IsGPT,setIsGPT] = useState(false);
+  const GptClickHandler =()=>{
+    //toogle feature
+    dispatch(togglerGptSearchView());
+    setIsGPT(!IsGPT);
+
+  }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -59,7 +67,7 @@ const Header = ({ IsSignIn, signinHandler }) => {
         </div>
       ): (// here operate from the browse page  
         <div className="flex items-center gap-4">
-          <button className="bg-green-600 py-2 px-2 rounded-md text-white font-bold">GPT Search</button>
+          <button onClick={GptClickHandler} className="bg-green-600 py-2 px-2 rounded-md text-white font-bold">{IsGPT?"GPT Search":"Home"}</button>
           <img src={NetflixUserbg} alt = "netflixUserBg"/>
           <button
             onClick={signinHandler}

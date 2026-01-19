@@ -4,6 +4,7 @@ import NowPlayingMovieReducer from "../Slices/MovieSlice";
 import TopRatedMovieReducer from "../Slices/MovieSlice";
 import PopularMovieReducer from "../Slices/MovieSlice";
 import UpcomingMovieReducer from "../Slices/MovieSlice";
+import GptSearchReducer from "../Slices/GptSlice";
 const appStore = configureStore(
     {
         reducer:{
@@ -12,6 +13,7 @@ const appStore = configureStore(
             popular:PopularMovieReducer,
             topRated:TopRatedMovieReducer,
             upcoming:UpcomingMovieReducer,
+            gptStore:GptSearchReducer,
         }
     }
 )

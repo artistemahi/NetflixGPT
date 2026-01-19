@@ -7,6 +7,8 @@ import useTopRatedMovie from '../utils/useTopRatedMovie'
 import useUpcomingMovie from '../utils/useUpcomingMovie'
 import MainComponent from "./MainComponent";
 import SecondaryComponent from "./SecondaryComponent";
+import {useSelector} from "react-redux"
+import GptSearch from "./GptSearch";
 const Browse = () => {
   useNowPlayingMovie();
   usePopularMovies();
@@ -22,12 +24,14 @@ const Browse = () => {
         alert(error.message);
       });
   };
+  const showGptSearch = useSelector((store:any)=>store.gptStore?.ShowGptSearch)
   return (
     <div>
       <Header IsSignIn={true} signinHandler={SignOutClickHandler} />
+      {showGptSearch ? <><GptSearch/></>:<><MainComponent/>
+      <SecondaryComponent/></>}
       <div >
-      <MainComponent/>
-      <SecondaryComponent/>
+      
        </div>
     </div>
   );

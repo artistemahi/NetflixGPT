@@ -59,6 +59,7 @@ const Header = ({ IsSignIn, signinHandler }) => {
         </div>
       ): (// here operate from the browse page  
         <div className="flex items-center gap-4">
+          <button className="bg-green-600 py-2 px-2 rounded-md text-white font-bold">GPT Search</button>
           <img src={NetflixUserbg} alt = "netflixUserBg"/>
           <button
             onClick={signinHandler}

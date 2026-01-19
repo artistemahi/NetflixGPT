@@ -1,5 +1,5 @@
-import React from 'react'
 import { Netflixbg } from "../utils/constants";
+import GptSearchBar from "./GptSearchBar";
 
 const GptSearch = () => {
   return (
@@ -8,8 +8,9 @@ const GptSearch = () => {
              <img
                src={Netflixbg}
                alt="netflixBg"
-               className="h-full w-full object-cover"
+               className="absolute -z-10"
              />
+             <GptSearchBar/>
     </div>
   )
 }

@@ -9,5 +9,8 @@ export const NetflixUserbg="https://occ-0-2483-3646.1.nflxso.net/dnm/api/v6/vN7b
   }
 };
 export const NowPlayingMovieAPI="https://api.themoviedb.org/3/movie/now_playing?page=1"
+export const PopularMoviesAPI="https://api.themoviedb.org/3/movie/popular?&page=1"
+export const TopRatedMoviesAPI="https://api.themoviedb.org/3/movie/top_rated?&page=1"
+export const UpcomingMoviesAPI="https://api.themoviedb.org/3/movie/upcoming?&page=1"
 export const Video_API="https://api.themoviedb.org/3/movie/83533/videos?language=en-US" // yaha video id aayegi 4 digit ki 
 export const CDN_API="https://image.tmdb.org/t/p/w200/";

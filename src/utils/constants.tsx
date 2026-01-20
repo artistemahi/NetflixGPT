@@ -5,7 +5,7 @@ export const NetflixUserbg="https://occ-0-2483-3646.1.nflxso.net/dnm/api/v6/vN7b
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZjNlZTVmMzBiZjcyNzhhY2Q1YzNiNDQzM2E5ZjRlMyIsIm5iZiI6MTc2ODY0ODQ0NC43MDgsInN1YiI6IjY5NmI2ZWZjMzc4MGRkNDZjYTdmOTgzMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xAFeiVQNcPVBjTiyhqQhftFOaS074VpWd1_O0D-wiMw'
+    Authorization: "Bearer"+ process.env.REACT_APP_TMDB_KEY,
   }
 };
 export const NowPlayingMovieAPI="https://api.themoviedb.org/3/movie/now_playing?page=1"

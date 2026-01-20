@@ -27,7 +27,7 @@ const Browse = () => {
   const showGptSearch = useSelector((store:any)=>store.gptStore?.ShowGptSearch)
   return (
     <div>
-      <Header IsSignIn={true} signinHandler={SignOutClickHandler} />
+      <Header  signinHandler={SignOutClickHandler} />
       {showGptSearch ? <><GptSearch/></>:<><MainComponent/>
       <SecondaryComponent/></>}
       <div >

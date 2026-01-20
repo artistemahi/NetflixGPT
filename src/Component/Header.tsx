@@ -3,7 +3,6 @@ import {
   NetflixUserbg,
   SupportedLanguages,
 } from "../utils/constants";
-import LanguageSelector from "./LanguageSelector";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
@@ -56,19 +55,17 @@ const Header = ({ IsSignIn, signinHandler }) => {
       {/* Left: Logo */}
       <Link to="/">
         <img
-          className="w-44 cursor-pointer"
+          className="w-24 sm:w-44 cursor-pointer  py-2 sm:py-2  "
           src={NetflixLogo}
           alt="netflix-logo"
         />
       </Link>
       {/* Right: Language selector + Sign Out */}
       {!IsSignIn ? (
-        <div className="flex items-center gap-4">
-          <LanguageSelector />
-
+        <div className="flex items-center gap-4 sm:gap-1">
           <button
             onClick={signinHandler}
-            className="rounded-md bg-red-600 px-6 py-2 text-white font-semibold hover:bg-red-700 transition"
+            className="rounded-md text-base sm:text-2xl w-20 sm:w-36 whitespace-nowrap  bg-red-600 py-2 sm:px-6 sm:py-2 text-white font-semibold hover:bg-red-700 transition"
           >
             Sign In
           </button>

@@ -5,7 +5,7 @@ export const NetflixUserbg="https://occ-0-2483-3646.1.nflxso.net/dnm/api/v6/vN7b
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: "Bearer"+ process.env.REACT_APP_TMDB_KEY,
+    Authorization:`Bearer ${process.env.REACT_APP_TMDB_TOKEN}`
   }
 };
 export const NowPlayingMovieAPI="https://api.themoviedb.org/3/movie/now_playing?page=1"

@@ -1,9 +1,10 @@
 import {UpcomingMoviesAPI,API_option} from "./constants";
 import {useEffect} from "react"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {addUpcomingMovie} from "../Slices/MovieSlice"
 const useUpcomingMovie = () => {
   const dispatch = useDispatch();
+  const UpcomingMovie= useSelector((store:any)=>store.movie?.UpcomingMovie)
   
     // fetching the nowplaying movies
   const fetchUpcomingMovie = async()=>{
@@ -14,7 +15,7 @@ const useUpcomingMovie = () => {
   }
 
   useEffect(()=>{
-    fetchUpcomingMovie();
+  if(!UpcomingMovie)  fetchUpcomingMovie();
   },[])
 }
 export default useUpcomingMovie;

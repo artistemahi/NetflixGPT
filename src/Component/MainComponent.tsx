@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 const MainComponent = () => {
   const movies = useSelector((store: any) => store.movie?.NowPlayingMovie);
   if (!movies) return;
-  console.log(movies);
+  // console.log(movies);
   const mainMovie = movies[0];
   const { title, overview, id } = mainMovie;
-  console.log(id);
+  // console.log(id);
   return (
     <div  className="relative h-[90vh] w-screen">
       <VideoTitle title={title} Overview={overview} />

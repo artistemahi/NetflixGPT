@@ -7,7 +7,7 @@ import { addGptMovieResult } from "../Slices/GptSlice";
 const GptSearchBar = () => {
   const langkey = useSelector((store: any) => store.lang?.lang);
   const searchtext = useRef<HTMLInputElement | null>(null);
-  const  dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const searchMovieTMDB = async (movie: string) => {
     const data = await fetch(
@@ -21,59 +21,59 @@ const GptSearchBar = () => {
   };
 
   //Hugging Groq call
- const callGroq = async (query: string) => {
-  const res = await fetch("https://api.groq.com/openai/v1/responses", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.REACT_APP_GROQ_KEY}`,
-    },
-    body: JSON.stringify({
-      model: "openai/gpt-oss-20b", // ✅ Groq-supported model
-      input: query,
-    }),
-  });
+  const callGroq = async (query: string) => {
+    const res = await fetch("https://api.groq.com/openai/v1/responses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.REACT_APP_GROQ_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-oss-20b", // ✅ Groq-supported model
+        input: query,
+      }),
+    });
 
-  if (!res.ok) {
-    const err = await res.text();
-    console.error("Groq Error:", err);
-    return null;
-  }
+    if (!res.ok) {
+      const err = await res.text();
+      console.error("Groq Error:", err);
+      return null;
+    }
 
-  const data = await res.json();
+    const data = await res.json();
 
-  // Groq response text extract
-  return data.output_text || data.output?.[0]?.content?.[0]?.text;
-};
-
+    // Groq response text extract
+    return data.output_text || data.output?.[0]?.content?.[0]?.text;
+  };
 
   const handleGPTsearch = async () => {
     const userQuery = searchtext.current?.value;
     if (!userQuery) return;
 
     const gptQuery = `
-User query: ${userQuery}
+Give exactly 5 movie titles related to:"${userQuery}"
 
-Give exactly 5 movie names related to this query.
 Rules:
-- Only movie names
-- Comma separated
-- No numbering
-- No explanation
-Example:
-Avatar, Don, Sholay, Koi Mil Gaya, Dangal
-`;
+- Suggest exactly 5 movies.
+- Output only movie titles.
+- Use comma separation.
+- No additional text or formatting.
+- Prioritize IMDb 8+ or trending movies.
+- If query is vague, suggest a diverse mix.
 
+`;
     const aiText = await callGroq(gptQuery);
     if (!aiText) return;
-  //  console.log(aiText);
-    const gptMovies = aiText.split(",").map((m) => m.trim());
+    //  console.log(aiText);
+    const gptMovies = aiText.split(",");
 
     const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
 
     const tmdbResults = await Promise.all(promiseArray);
     // console.log(tmdbResults);
-    dispatch(addGptMovieResult({movieNames:gptMovies, movieResults: tmdbResults}))
+    dispatch(
+      addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults }),
+    );
   };
 
   if (!langkey || !lang?.[langkey]) return null;

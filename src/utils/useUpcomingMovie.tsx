@@ -16,6 +16,7 @@ const useUpcomingMovie = () => {
 
   useEffect(()=>{
   if(!UpcomingMovie)  fetchUpcomingMovie();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 }
 export default useUpcomingMovie;

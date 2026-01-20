@@ -16,6 +16,7 @@ const useTopRatedMovie = () => {
 
   useEffect(()=>{
    if(!TopRatedMovie) fetchTopRatedMovie();
+   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 }
 export default useTopRatedMovie;
